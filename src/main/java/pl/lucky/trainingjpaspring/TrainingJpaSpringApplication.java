@@ -11,16 +11,17 @@ import pl.lucky.trainingjpaspring.model.Book;
 @Configuration
 public class TrainingJpaSpringApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ConfigurableApplicationContext ctx = SpringApplication.run(TrainingJpaSpringApplication.class, args);
 
         BookDao bookDao = ctx.getBean(BookDao.class);
 
-        Book book = new Book("1234567890468", "Spring is so cool", "Tom");
+        Book book = new Book("1234567890462", "aaaa", "ssss");
         bookDao.save(book);
 
         Book bookGet = bookDao.get(1L);
         System.out.println(bookGet);
+        Thread.sleep(5000);
         ctx.close();
     }
 
