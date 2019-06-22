@@ -1,6 +1,5 @@
 package pl.lucky.trainingjpaspring.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,6 +27,7 @@ public class User implements Serializable {
     private String email;
 
     @OneToOne/*(cascade = {CascadeType.ALL})*/
+    @JoinColumn(name = "id_details")
     private UserDetails userDetails;
 
     public User(String username, String password, String email) {

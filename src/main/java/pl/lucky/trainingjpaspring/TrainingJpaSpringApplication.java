@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import pl.lucky.trainingjpaspring.dao.UserDaoImpl;
+import pl.lucky.trainingjpaspring.dao.UserDetailsDao;
 import pl.lucky.trainingjpaspring.model.User;
 import pl.lucky.trainingjpaspring.model.UserDetails;
 
@@ -26,7 +27,8 @@ public class TrainingJpaSpringApplication {
         user.getUserDetails().setFirstName("AaaAAaa");
         userDao.update(user);
 
-        User userFromDb = userDao.get(11L);
+        UserDetailsDao detailsDao = ctx.getBean(UserDetailsDao.class);
+        UserDetails userFromDb = detailsDao.get(1L);
         System.out.println(userFromDb);
 
         ctx.close();

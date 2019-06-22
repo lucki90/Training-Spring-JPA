@@ -25,10 +25,23 @@ public class UserDetails implements Serializable {
 
     private String address;
 
+    @OneToOne(mappedBy = "userDetails")
+    private User user;
+
     public UserDetails(String firstName, String lastName, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDetails{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 
     @PrePersist
