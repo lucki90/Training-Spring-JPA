@@ -29,9 +29,9 @@ public class TrainingJpaSpringApplication {
         System.out.println(bookGet);
 
         //DELETE
-        bookDao.remove(1L);
-        Book book3 = bookDao.get(1L);
-        System.out.println(book3);
+//        bookDao.remove(1L);
+//        Book book3 = bookDao.get(1L);
+//        System.out.println(book3);
 
 
         ctx.close();
