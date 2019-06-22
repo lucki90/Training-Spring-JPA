@@ -3,36 +3,31 @@ package pl.lucky.trainingjpaspring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import pl.lucky.trainingjpaspring.dao.BookDao;
-import pl.lucky.trainingjpaspring.model.Book;
+import pl.lucky.trainingjpaspring.dao.UserDaoImpl;
+import pl.lucky.trainingjpaspring.model.User;
+import pl.lucky.trainingjpaspring.model.UserDetails;
 
 @SpringBootApplication
 public class TrainingJpaSpringApplication {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         ConfigurableApplicationContext ctx = SpringApplication.run(TrainingJpaSpringApplication.class, args);
 
-        BookDao bookDao = ctx.getBean(BookDao.class);
+        UserDaoImpl userDao = ctx.getBean(UserDaoImpl.class);
 
-        //CREATE
-        Book book = new Book("1234567890464", "fdsfds", "fhfg");
-        Book book1 = new Book("1234567890463", "dddd", "ssss");
-        bookDao.save(book);
-        bookDao.save(book1);
+        User user = new User("tommm","pass","tom@wp.pl");
+        userDao.save(user);
 
-        //UPDATE
-        book1.setId(1L);
-        bookDao.update(book1);
+        UserDetails details = new UserDetails("tom","luc","Gdansk");
+        user.setUserDetails(details);
+        userDao.update(user);
 
-        //READ
-        Book bookGet = bookDao.get(1L);
-        System.out.println(bookGet);
+        user.setPassword("aaaaaaa");
+        user.getUserDetails().setFirstName("AaaAAaa");
+        userDao.update(user);
 
-        //DELETE
-//        bookDao.remove(1L);
-//        Book book3 = bookDao.get(1L);
-//        System.out.println(book3);
-
+        User userFromDb = userDao.get(11L);
+        System.out.println(userFromDb);
 
         ctx.close();
     }
