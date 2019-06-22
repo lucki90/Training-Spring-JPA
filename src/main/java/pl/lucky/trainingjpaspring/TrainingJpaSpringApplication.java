@@ -14,14 +14,26 @@ public class TrainingJpaSpringApplication {
 
         BookDao bookDao = ctx.getBean(BookDao.class);
 
-        Book book = new Book("1234567890462", "fdsfds", "fhfg");
-        Book book1 = new Book("1234567890462", "dddd", "ssss");
+        //CREATE
+        Book book = new Book("1234567890464", "fdsfds", "fhfg");
+        Book book1 = new Book("1234567890463", "dddd", "ssss");
         bookDao.save(book);
         bookDao.save(book1);
 
+        //UPDATE
+        book1.setId(1L);
+        bookDao.update(book1);
+
+        //READ
         Book bookGet = bookDao.get(1L);
         System.out.println(bookGet);
-        Thread.sleep(5000);
+
+        //DELETE
+        bookDao.remove(1L);
+        Book book3 = bookDao.get(1L);
+        System.out.println(book3);
+
+
         ctx.close();
     }
 
