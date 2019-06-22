@@ -3,10 +3,10 @@ package pl.lucky.trainingjpaspring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import pl.lucky.trainingjpaspring.dao.UserDaoImpl;
-import pl.lucky.trainingjpaspring.dao.UserDetailsDao;
-import pl.lucky.trainingjpaspring.model.User;
-import pl.lucky.trainingjpaspring.model.UserDetails;
+import pl.lucky.trainingjpaspring.dao.ClientDao;
+import pl.lucky.trainingjpaspring.dao.OrderDao;
+import pl.lucky.trainingjpaspring.model.Client;
+import pl.lucky.trainingjpaspring.model.Order;
 
 @SpringBootApplication
 public class TrainingJpaSpringApplication {
@@ -14,22 +14,19 @@ public class TrainingJpaSpringApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = SpringApplication.run(TrainingJpaSpringApplication.class, args);
 
-        UserDaoImpl userDao = ctx.getBean(UserDaoImpl.class);
+        Client client = new Client("Jan", "Kowalski", "Krakowskie przedmieście 23, Warszawa");
+        ClientDao clientDao = ctx.getBean(ClientDao.class);
+        clientDao.save(client);
+        System.out.println(client);
 
-        User user = new User("tommm","pass","tom@wp.pl");
-        userDao.save(user);
+        Order order = new Order("Telewizor LG", "42', dostawa do domu");
+        order.setClient(client);
+        OrderDao orderDao = ctx.getBean(OrderDao.class);
+        orderDao.save(order);
 
-        UserDetails details = new UserDetails("tom","luc","Gdansk");
-        user.setUserDetails(details);
-        userDao.update(user);
-
-        user.setPassword("aaaaaaa");
-        user.getUserDetails().setFirstName("AaaAAaa");
-        userDao.update(user);
-
-        UserDetailsDao detailsDao = ctx.getBean(UserDetailsDao.class);
-        UserDetails userFromDb = detailsDao.get(1L);
-        System.out.println(userFromDb);
+        System.out.println("##########################################");
+        Client getClient = clientDao.get(1L);
+        System.out.println(getClient);
 
         ctx.close();
     }
