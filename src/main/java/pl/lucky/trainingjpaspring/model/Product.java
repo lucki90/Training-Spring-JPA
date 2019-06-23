@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -12,7 +13,12 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Product {
+@NamedQueries({
+        @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
+        @NamedQuery(name = "Product.findAllOrderByPrice", query = "SELECT p FROM Product p ORDER BY p.price"),
+        @NamedQuery(name = "Product.findAllOrderByPrice", query = "DELETE FROM Product p ")
+})
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -14,8 +14,9 @@ import java.util.List;
 public class ProductDao extends GenericDao<Product, Long> {
 
     public List<Product> getAll(){
-        final String getAll = "SELECT p FROM Product p";
-        TypedQuery<Product> getAllQuery = em.createQuery(getAll,Product.class);
+//        final String getAll = "SELECT p FROM Product p";
+//        TypedQuery<Product> getAllQuery = em.createQuery(getAll,Product.class);
+        TypedQuery<Product> getAllQuery = em.createNamedQuery("Product.findAll",Product.class);
         return getAllQuery.getResultList();
     }
 
