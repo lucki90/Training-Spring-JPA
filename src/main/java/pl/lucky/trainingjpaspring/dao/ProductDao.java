@@ -13,22 +13,28 @@ import java.util.List;
 @Transactional
 public class ProductDao extends GenericDao<Product, Long> {
 
-    public List<Product> getAll(){
+    public List<Product> getAll() {
 //        final String getAll = "SELECT p FROM Product p";
 //        TypedQuery<Product> getAllQuery = em.createQuery(getAll,Product.class);
-        TypedQuery<Product> getAllQuery = em.createNamedQuery("Product.findAll",Product.class);
+        TypedQuery<Product> getAllQuery = em.createNamedQuery("Product.findAll", Product.class);
         return getAllQuery.getResultList();
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         final String deleteAll = "DELETE FROM Product p";
         Query deleteAllQuery = em.createQuery(deleteAll);
         deleteAllQuery.executeUpdate();
     }
 
-    public List<Product> customGet(String jpqlQuery){
-        TypedQuery<Product> query = em.createQuery(jpqlQuery,Product.class);
+    public List<Product> customGet(String jpqlQuery) {
+        TypedQuery<Product> query = em.createQuery(jpqlQuery, Product.class);
         return query.getResultList();
+    }
+
+    public List<Product> getByName(String name) {
+        return em.createNamedQuery("Product.findByName", Product.class)
+                .setParameter("name", name)
+                .getResultList();
     }
 
 }
