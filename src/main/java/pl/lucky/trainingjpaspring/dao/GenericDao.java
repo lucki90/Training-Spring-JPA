@@ -27,4 +27,9 @@ public abstract class GenericDao<T, K> {
         T find = em.find(type,key);
         return find;
     }
+
+    public void remove(T entity){
+        T managedEntity = em.merge(entity);
+        em.remove(managedEntity);
+    }
 }

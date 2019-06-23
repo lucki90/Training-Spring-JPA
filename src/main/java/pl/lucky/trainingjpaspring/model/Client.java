@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,20 +26,29 @@ public class Client implements Serializable {
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client",
+            fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true)
     private List<Order> orders;
+
+    public void addOrder(Order order) {
+        order.setClient(this);
+        getOrders().add(order);
+    }
 
     public Client(String firstName, String lastName, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
+        orders = new ArrayList<>();
     }
 
     @Override
     public String toString() {
         return "Client [id=" + id + ", firstName=" + firstName
-                + ", lastName=" + lastName + ", address=" + address
-                + ", orders=" + orders + "]";
-    }
+                + ", lastName=" + lastName + ", address=" + address + orders.size()
+                + ",\n orders=" + orders + "]";
 
+    }
 }
