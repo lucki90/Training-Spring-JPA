@@ -1,4 +1,4 @@
-package pl.lucky.trainingjpaspring.model;
+package pl.lucky.trainingjpaspring.model.user;
 
 import lombok.*;
 

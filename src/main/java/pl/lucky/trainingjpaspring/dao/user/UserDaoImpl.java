@@ -1,10 +1,10 @@
-package pl.lucky.trainingjpaspring.dao;
+package pl.lucky.trainingjpaspring.dao.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.lucky.trainingjpaspring.model.User;
-import pl.lucky.trainingjpaspring.model.UserDetails;
+import pl.lucky.trainingjpaspring.model.user.User;
+import pl.lucky.trainingjpaspring.model.user.UserDetails;
 
 import javax.persistence.EntityManager;
 

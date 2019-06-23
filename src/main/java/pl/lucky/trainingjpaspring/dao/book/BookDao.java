@@ -1,6 +1,6 @@
-package pl.lucky.trainingjpaspring.dao;
+package pl.lucky.trainingjpaspring.dao.book;
 
-import pl.lucky.trainingjpaspring.model.Book;
+import pl.lucky.trainingjpaspring.model.book.Book;
 
 public interface BookDao {
 

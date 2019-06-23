@@ -1,4 +1,4 @@
-package pl.lucky.trainingjpaspring.model;
+package pl.lucky.trainingjpaspring.model.book;
 
 import javax.persistence.*;
 import java.io.Serializable;

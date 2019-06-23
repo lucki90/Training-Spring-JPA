@@ -10,24 +10,43 @@ import pl.lucky.trainingjpaspring.model.Client;
 import pl.lucky.trainingjpaspring.model.Order;
 import pl.lucky.trainingjpaspring.model.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootApplication
 public class TrainingJpaSpringApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = SpringApplication.run(TrainingJpaSpringApplication.class, args);
 
-        Client client = new Client("Jan", "Kowalski", "Krakowskie przedmieście 23, Warszawa");
-        Order order = new Order("z dostawą do domu");
-        Product product1 = new Product("Telewizor LG 42'", 4800.0, "dolby surround");
-        Product product2 = new Product("Telefon Apple iPhone SE", 2200.0, "pokrowiec gratis");
-        order.getProducts().add(product1);
-        order.getProducts().add(product2);
-        client.addOrder(order);
+        List<Product> products = new ArrayList<>();
+        products.add(new Product("Telewizor",  4500.0,"Samsung"));
+        products.add(new Product("Opiekacz",  120.0,"Opiex"));
+        products.add(new Product("Laptop",  3599.0,"Samsung"));
+        products.add(new Product("Kino domowe", 2600.0, "Yamaha"));
+        products.add(new Product("Smartfon", 2100.0, "Sony"));
 
-        ClientDao clientDao = ctx.getBean(ClientDao.class);
-        clientDao.save(client);
+        ProductDao productDao = ctx.getBean(ProductDao.class);
+        products.forEach(productDao::save);
 
-        clientDao.removeAllOrders(client);
+        System.out.println("All products:");
+        List<Product> allProducts = productDao.getAll();
+        allProducts.forEach(System.out::println);
+
+        System.out.println("Products more expensive than 3000");
+        List<Product> expensiveProducts = productDao.customGet("SELECT p FROM Product p WHERE p.price > 3000");
+        expensiveProducts.forEach(System.out::println);
+
+        System.out.println("All products ordered by price");
+        List<Product> productsByPrice = productDao.customGet("SELECT p FROM Product p ORDER BY p.price ASC");
+        productsByPrice.forEach(System.out::println);
+
+        System.out.println("Expensive Samsung Products:");
+        List<Product> expendiveSamsungProducts =
+                productDao.customGet("SELECT p FROM Product p WHERE p.details = 'Samsung' AND p.price > 4000");
+        expendiveSamsungProducts.forEach(System.out::println);
+
+//        productDao.deleteAll();
 
         ctx.close();
     }

@@ -1,6 +1,6 @@
-package pl.lucky.trainingjpaspring.dao;
+package pl.lucky.trainingjpaspring.dao.user;
 
-import pl.lucky.trainingjpaspring.model.User;
+import pl.lucky.trainingjpaspring.model.user.User;
 
 public interface UserDao {
 

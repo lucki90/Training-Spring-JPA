@@ -1,8 +1,8 @@
-package pl.lucky.trainingjpaspring.dao;
+package pl.lucky.trainingjpaspring.dao.book;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.lucky.trainingjpaspring.model.Book;
+import pl.lucky.trainingjpaspring.model.book.Book;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
