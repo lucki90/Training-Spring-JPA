@@ -17,18 +17,29 @@ public class SpringDataBootApp {
 
         List<Car> cars = new ArrayList<>();
         cars.add(new Car("A4", "Audi", 49000.0));
+        cars.add(new Car("A5", "Audi", 67000.0));
         cars.add(new Car("Auris", "Toyota", 35000.0));
         cars.add(new Car("Insignia", "Opel", 29500.0));
+        cars.add(new Car("A8", "Audi", 28000.0));
+        cars.add(new Car("Corolla", "Toyota", 31000.0));
+        cars.add(new Car("Vectra", "Opel", 29500.0));
+        cars.add(new Car("Astra", "Opel", 29500.0));
 
 
         CarRepository carRepository = ctx.getBean(CarRepository.class);
         cars.forEach(carRepository::save);
 
-        Car firstCar = carRepository.findById(1L).get();
-        carRepository.delete(firstCar);
+        carRepository.findByBrand("Toyota").forEach(System.out::println);
+        System.out.println();
+        System.out.println(carRepository.findFirst3ByBrand("Opel"));
+        System.out.println();
+        carRepository.findAllByBrandAndPrice("Audi",4900).forEach(System.out::println);
 
-        carRepository.findAll().forEach(System.out::println);
+        carRepository.findAllByBrandOrderByPriceAsc("Audi").forEach(System.out::println);
 
+        carRepository.findAllByBrandNotNull().forEach(System.out::println);
+
+        carRepository.findAllByBrandNotLike("audi").forEach(System.out::println);
         ctx.close();
 
     }
