@@ -45,4 +45,6 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     List<Car> findAllByBrandAndPrice(String brand, double price);
 
     List<Car> findAllByBrandNotLike(String pattern);
+
+
 }
